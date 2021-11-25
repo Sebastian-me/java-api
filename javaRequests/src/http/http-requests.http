@@ -1,0 +1,19 @@
+POST https://symfony-x-auth.ddev.site/login
+Content-Type: application/json
+
+{
+  "username": "sCooper",
+  "password": "password"
+}
+
+> {%
+ client.test("response status should be 200", function () {
+     client.assert(response.status === 200, 'actual: ' + response.status);
+ });
+
+ client.test('body should have xauth token', function () {
+     client.assert(response.body.hasOwnProperty('x-auth-token'), "missing property");
+ });
+
+ client.global.set("adminKey", response.body["x-auth-token"]);
+ %}
