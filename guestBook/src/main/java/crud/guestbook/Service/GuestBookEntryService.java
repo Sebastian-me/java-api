@@ -1,6 +1,6 @@
 package crud.guestbook.Service;
 
-import crud.guestbook.Entity.GuestbookEntry;
+import crud.guestbook.Entity.GuestBookEntry;
 import crud.guestbook.Repository.GuestBookEntryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,11 +12,11 @@ public class GuestBookEntryService {
     @Autowired
     private GuestBookEntryRepository repository;
 
-    public GuestbookEntry create(GuestbookEntry request) {
+    public GuestBookEntry create(GuestBookEntry request) {
         return repository.save(request);
     }
 
-    public List<GuestbookEntry> readAll() {
+    public List<GuestBookEntry> readAll() {
         return repository.findAll();
     }
 
@@ -24,12 +24,12 @@ public class GuestBookEntryService {
         repository.deleteById(id);
     }
 
-    public GuestbookEntry read(long id) {
-        return repository.findById(id).get();
+    public GuestBookEntry read(long id) {
+        return repository.findById(id).orElseGet(repository.findById(id)::get);
     }
 
-    public GuestbookEntry update(GuestbookEntry request) {
-        GuestbookEntry old = read(request.getId());
+    public GuestBookEntry update(long id, GuestBookEntry request) {
+        GuestBookEntry old = read(id);
         old.setTitle(request.getTitle());
         old.setComment(request.getComment());
         old.setCommenter(request.getCommenter());

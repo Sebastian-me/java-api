@@ -9,5 +9,4 @@ public class GuestBookApplication {
     public static void main(String[] args) {
         SpringApplication.run(GuestBookApplication.class, args);
     }
-
 }

@@ -1,12 +1,15 @@
 package crud.guestbook.Mapper;
 
-import crud.guestbook.Entity.GuestbookEntry;
+import crud.guestbook.Entity.GuestBookEntry;
 import crud.guestbook.Request.GuestBookEntryRequest;
 import crud.guestbook.Response.GuestBookEntryResponse;
+import org.springframework.stereotype.Service;
 
+@Service
 public class GuestBookEntryMapper {
-    public GuestbookEntry mapRequestToModel(GuestBookEntryRequest request) {
-        GuestbookEntry entry = new GuestbookEntry();
+
+    public GuestBookEntry mapRequestToModel(GuestBookEntryRequest request) {
+        GuestBookEntry entry = new GuestBookEntry();
 
         entry.setTitle(request.getTitle());
         entry.setComment(request.getComment());
@@ -15,17 +18,24 @@ public class GuestBookEntryMapper {
         return entry;
     }
 
-    public GuestbookEntry mapRequestToModel(long id, GuestBookEntryRequest request) {
-        return new GuestbookEntry();
+    public GuestBookEntry mapRequestToModel(long id, GuestBookEntryRequest request) {
+
+        GuestBookEntry entry = new GuestBookEntry();
+        entry.setId(id);
+        entry.setTitle(request.getTitle());
+        entry.setComment(request.getComment());
+        entry.setCommenter(request.getCommenter());
+
+        return entry;
     }
 
-    public GuestBookEntryResponse mapModelToResponse(GuestbookEntry entry) {
+    public GuestBookEntryResponse mapModelToResponse(GuestBookEntry entry) {
 
         GuestBookEntryResponse response = new GuestBookEntryResponse();
         response.setId(entry.getId());
         response.setTitle(entry.getTitle());
         response.setComment(entry.getComment());
-        response.setCommenter(response.getCommenter());
+        response.setCommenter(entry.getCommenter());
 
         return response;
     }
